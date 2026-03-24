@@ -5,20 +5,17 @@ import com.example.crm.customer.model.Customer
 import com.example.crm.customer.model.CustomerStatus
 import com.example.crm.customer.repository.ICustomerRepository
 
-class PremiumCustomerServiceImpl(private val customerRepository: ICustomerRepository) : CustomerService {
+
+class PremiumCustomerServiceImpl(private val customerRepository: ICustomerRepository) : CustomerServiceImpl(customerRepository) {
     override fun createCustomer(customer: Customer): Customer {
-        validateCustomer(customer)
-
-
-        return customerRepository.create(customer)
+        return super.createCustomer(customer)
     }
 
     override fun updateCustomer(customer: Customer): Customer {
-        validateCustomer(customer)
         if (!customer.isPremium) {
             throw IllegalArgumentException("NNN")
         }
-        return customerRepository.update(customer)
+        return super.updateCustomer(customer)
     }
 
     override fun findCustomerById(id: String): Customer? {
@@ -30,16 +27,16 @@ class PremiumCustomerServiceImpl(private val customerRepository: ICustomerReposi
         if (!customer.isPremium) {
             throw IllegalArgumentException("NNN")
         }
-        return customerRepository.findById(id)
+        return super.findCustomerById(id)
     }
 
     override fun listCustomers(): List<Customer> {
 
-        return customerRepository.findAll()
+        return super.listCustomers()
     }
 
     override fun ListActiveCustomers(): List<Customer> {
-        return customerRepository.findAllActive()
+        return super.ListActiveCustomers()
     }
 
 
